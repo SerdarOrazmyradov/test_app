@@ -28,6 +28,10 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Fix deprecated proguard file in flutter_inappwebview_android
+        run: |
+          find "$HOME/.pub-cache" -path "*flutter_inappwebview_android*/android/build.gradle" -exec sed -i "s/proguard-android\.txt/proguard-android-optimize.txt/g" {} +
+
       - name: Build Debug APK
         run: flutter build apk --debug
 
